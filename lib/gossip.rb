@@ -2,7 +2,7 @@ require 'bundler'
 Bundler.require
 
 class Gossip
-    attr_reader :author, :content, :id, data_base 
+    attr_reader :author, :content, :id
 
     def initialize(author,content)
         @content = content
@@ -24,11 +24,18 @@ class Gossip
     end
 
     def self.find(id)
-        @data_base = CSV.read("./db/gossip.csv")
+        data_base = CSV.read("./db/gossip.csv")
         return data_base[id]
     end
 
-    def update(ind)
-
+    def update(author, content, id)
+        list = CSV.read("./db/gossip.csv")
+        list.each_with_index do |gossip, ind|
+           if ind = id
+            @author = author
+            @content =content
+           end
+        end
+        
     end
 end
